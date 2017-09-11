@@ -205,28 +205,12 @@ static uint32_t stm32lx_nvm_eeprom_size(target *t)
 
 static uint32_t stm32lx_nvm_phys(target *t)
 {
-        switch (t->idcode) {
-        case 0x457:                   /* STM32L0xx Cat1 */
-        case 0x425:                   /* STM32L0xx Cat2 */
-        case 0x417:                   /* STM32L0xx Cat3 */
-        case 0x447:                   /* STM32L0xx Cat5 */
-                return STM32L0_NVM_PHYS;
-        default:                      /* STM32L1xx */
-                return STM32L1_NVM_PHYS;
-        }
+	return stm32lx_is_stm32l1(t) ? STM32L1_NVM_PHYS : STM32L0_NVM_PHYS;
 }
 
 static uint32_t stm32lx_nvm_option_size(target *t)
 {
-        switch (t->idcode) {
-        case 0x457:                   /* STM32L0xx Cat1 */
-        case 0x425:                   /* STM32L0xx Cat2 */
-        case 0x417:                   /* STM32L0xx Cat3 */
-        case 0x447:                   /* STM32L0xx Cat5 */
-                return STM32L0_NVM_OPT_SIZE;
-        default:                      /* STM32L1xx */
-                return STM32L1_NVM_OPT_SIZE;
-        }
+	return stm32lx_is_stm32l1(t) ? STM32L1_NVM_OPT_SIZE : STM32L0_NVM_OPT_SIZE;
 }
 
 static void stm32l_add_flash(target *t,
